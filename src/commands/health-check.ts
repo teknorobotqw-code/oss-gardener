@@ -3,12 +3,14 @@ import path from "node:path";
 import { findProjectRoot, getPackageJson, fileExists, findFiles } from "../core/fs.js";
 import { printHeader, printCheck, printSummary, type CheckResult } from "../utils/logger.js";
 
-export async function healthCheck(options: { path?: string }): Promise<void> {
+export async function healthCheck(options: { path?: string; json?: boolean }): Promise<CheckResult[]> {
   const root = options.path ? path.resolve(options.path) : findProjectRoot();
   const pkg = getPackageJson(root);
 
-  printHeader("Repository Health Check");
-  console.log(`  ${root}\n`);
+  if (!options.json) {
+    printHeader("Repository Health Check");
+    console.log(`  ${root}\n`);
+  }
 
   const checks: CheckResult[] = [];
 
@@ -101,6 +103,13 @@ export async function healthCheck(options: { path?: string }): Promise<void> {
     message: `${tsFiles.length + jsFiles.length} source files. ${tsFiles.length > jsFiles.length ? "TypeScript" : "JavaScript"} dominant.`,
   });
 
+  if (options.json) {
+    const passed = checks.filter((c) => c.passed).length;
+    const score = Math.round((passed / checks.length) * 100);
+    console.log(JSON.stringify({ root, checks, passed, total: checks.length, score }, null, 2));
+    return checks;
+  }
+
   for (const check of checks) {
     printCheck(check);
   }
@@ -111,4 +120,6 @@ export async function healthCheck(options: { path?: string }): Promise<void> {
   const score = Math.round((passed / checks.length) * 100);
   const grade = score >= 90 ? "A" : score >= 70 ? "B" : score >= 50 ? "C" : "D";
   console.log(`  Health score: ${grade} (${score}%)`);
+
+  return checks;
 }

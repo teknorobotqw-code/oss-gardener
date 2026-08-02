@@ -51,6 +51,7 @@ program
   .command("health")
   .description("Check repository health and best practices")
   .option("-p, --path <dir>", "Project root path")
+  .option("-j, --json", "Output results as JSON")
   .action(async (options) => {
     await healthCheck(options);
   });
