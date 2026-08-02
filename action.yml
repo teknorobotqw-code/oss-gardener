@@ -1,0 +1,21 @@
+name: OSS Gardener
+description: Automated PR review, issue triage, and repo health checks for open source maintainers
+author: oss-gardener
+
+branding:
+  icon: check-circle
+  color: green
+
+inputs:
+  command:
+    description: Command to run (pr-review, health)
+    required: true
+    default: health
+  base:
+    description: Base ref for PR review (default HEAD~1)
+    required: false
+    default: HEAD~1
+
+runs:
+  using: node20
+  main: dist/action.js

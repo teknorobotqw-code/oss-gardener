@@ -1,0 +1,57 @@
+{
+  "name": "oss-gardener",
+  "version": "1.0.0",
+  "description": "All-in-one CLI toolkit for open source project maintainers — PR review automation, issue triage, release management, and repository health checks.",
+  "keywords": [
+    "open-source",
+    "maintainer",
+    "pr-review",
+    "issue-triage",
+    "release-management",
+    "cli",
+    "github-actions",
+    "devtools"
+  ],
+  "homepage": "https://github.com/teknorobotqw-code/oss-gardener#readme",
+  "bugs": {
+    "url": "https://github.com/teknorobotqw-code/oss-gardener/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teknorobotqw-code/oss-gardener.git"
+  },
+  "license": "MIT",
+  "author": "",
+  "type": "module",
+  "main": "./dist/index.js",
+  "bin": {
+    "oss-gardener": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "action.yml"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/cli.js",
+    "dev": "tsc --watch",
+    "test": "jest",
+    "lint": "eslint src/",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^12.1.0",
+    "ora": "^8.1.1",
+    "semver": "^7.6.3",
+    "simple-git": "^3.25.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.0",
+    "@types/semver": "^7.5.8",
+    "typescript": "^5.6.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
