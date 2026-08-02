@@ -35,7 +35,7 @@
     "build": "tsc",
     "start": "node dist/cli.js",
     "dev": "tsc --watch",
-    "test": "jest",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "lint": "eslint src/",
     "prepublishOnly": "npm run build"
   },
@@ -47,8 +47,11 @@
     "simple-git": "^3.25.0"
   },
   "devDependencies": {
+    "@types/jest": "^30.0.0",
     "@types/node": "^22.7.0",
     "@types/semver": "^7.5.8",
+    "jest": "^30.4.2",
+    "ts-jest": "^29.4.12",
     "typescript": "^5.6.0"
   },
   "engines": {
